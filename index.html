@@ -1,0 +1,134 @@
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hernani MQTT</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<style>
+* {
+    font-size: 15px;
+}
+</style>
+
+<body>
+    <center>
+        <h1 style=" text-shadow: 2px 2px #ec9a92;">🇲‌🇶‌🇹‌🇹‌ 🇴‌🇻‌🇪‌🇷‌ 🇼‌🇪‌🇧‌ 🇸‌🇴‌🇨‌🇰‌🇪‌🇹‌</h1>
+    </center>
+
+    <div class="container-fluid">
+        <div class="row justify-content-around">
+            <div class="container-fluid col-lg-3 col-md-11 col-sm-12 mt-3">
+                <div class="card shadow p-1 mb-5 bg-white rounded">
+                    <div class="card-header  text-white h4" style="background-color:#ec9a92">ʙʀᴏᴋᴇʀ</div>
+                    <div class="card-body" style="background-image: url('https://bit.ly/3eQ6Wxe'); background-repeat: no-repeat; background-size: cover">
+                        <div class="form-group">
+                            <strong class="text-white ">ᴀᴅᴅʀᴇss: </strong>
+                            <input type="text" class="form-control" id="address" name="address" value="wss://test.mosquitto.org:8081/mqtt">
+                            <br>
+                            <button type="button" class="btn btn-light" id="Cbroker" style="color: #f79477;">ᴄᴏɴɴᴇᴄᴛ</button>
+                            <button type="button" class="btn btn-light" style="color: #f79477;">ᴅɪsᴄᴏɴɴᴇᴄᴛ</button>
+                            <br>
+                            <br>
+                            <strong class="text-white">sᴛᴀᴛᴜs: </strong>
+                            <input type="text" class="form-control" id="status" name="status" value="ᴘʀᴇss ᴄᴏɴɴᴇᴄᴛ">
+                        </div>
+                    </div>
+                </div>
+                <div class="card shadow p-1 mb-5 bg-white rounded">
+                    <div class="card-header text-white h5" style="background-color:#ec9a92"> ɪɴᴄᴏᴍɪɴɢ ᴍᴇssᴀɢᴇs</div>
+                    <div class="card-body" style="background-image: url('https://bit.ly/3eQ6Wxe'); background-repeat: no-repeat; background-size: cover">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="text-white">ᴛᴏᴘɪᴄ</th>
+                                    <th scope="col" class="text-white">ᴘᴀʏʟᴏᴀᴅ</th>
+                                    <th scope="col" class="text-white">ᴛɪᴍᴇ sᴛᴀᴍᴘ</th>
+                                </tr>
+                            </thead>
+                            <tbody id="IncomingData">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid col-lg-4 col-md-12 col-sm-12 mt-4">
+                <div class="card shadow p-1 mb-5 bg-white rounded">
+                    <div class="card-header  text-white h4" style="background-color:#ec9a92" >ᴘᴜʙʟɪsʜ</div>
+                    <div class="card-body" style="background-image: url('https://bit.ly/3eQ6Wxe'); background-repeat: no-repeat; background-size: cover">
+                        <div class="form-group">
+                            <strong class="text-white">ᴛᴏᴘɪᴄ: </strong>
+                            <input type="text" class="form-control" id="pub-topic" name="pub-topic" placeholder="ɪɴᴘᴜᴛ ʏᴏᴜʀ ᴛᴏᴘɪᴄ ʜᴇʀᴇ:" required>
+                            <br>
+                            <strong class="text-white">ᴘᴀʏʟᴏᴀᴅ: </strong>
+                            <input type="text" class="form-control" id="pub-payload" name="pub-payload" placeholder="ɪɴᴘᴜᴛ ʏᴏᴜʀ ᴘᴀʏʟᴏᴀᴅ ʜᴇʀᴇ:" required>
+                            <br>
+                            <button type="button" class="btn btn-light" id="Pbutton" style="color: #f79477;"   >ᴘᴜʙʟɪsʜ</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card shadow p-1 mb-5 bg-white rounded">
+                    <div class="card-header  text-white h5" style="background-color:#ec9a92">ᴘᴜʙʟɪsʜ ᴍᴇssᴀɢᴇs</div>
+                    <div class="card-body" style="background-image: url('https://bit.ly/3eQ6Wxe'); background-repeat: no-repeat; background-size: cover">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="text-white">ᴛᴏᴘɪᴄ</th>
+                                    <th class="text-white">ᴘᴀʏʟᴏᴀᴅ</th>
+                                    <th class="text-white">ᴛɪᴍᴇ sᴛᴀᴍᴘ</th>
+                                </tr>
+                            </thead>
+                            <tbody id="PublishData">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid col-lg-4 col-md-12 col-sm-12 mt-4">
+                <div class="card shadow p-1 mb-5 bg-white rounded">
+                    <div class="card-header  text-white h4" style="background-color:#ec9a92"> sᴜʙsᴄʀɪʙᴇ</div>
+                    <div class="card-body" style="background-image: url('https://bit.ly/3eQ6Wxe'); background-repeat: no-repeat; background-size: cover">
+                        <div class="form-group">
+                            <strong class="text-white">ᴛᴏᴘɪᴄ: </strong>
+                            <input type="text" class="form-control" id="sub-topic" name="sub-topic" placeholder="ɪɴᴘᴜᴛ ʏᴏᴜʀ ᴛᴏᴘɪᴄ ʜᴇʀᴇ:" required>
+                            <br>
+                            <button type="button" class="btn btn-light" id="Sbutton" style="color: #f79477;">sᴜʙsᴄʀɪʙᴇ</button>
+                            <button type="button" class="btn btn-light" style="color: #f79477;" >ᴜɴsᴜʙsᴄʀɪʙᴇ</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card shadow p-1 mb-5 bg-white rounded">
+                    <div class="card-header  text-white h5" style="background-color:#ec9a92">sᴜʙᴄʀɪʙᴇᴅ ᴍᴇssᴀɢᴇs</div>
+                    <div class="card-body"style="background-image: url('https://bit.ly/3eQ6Wxe'); background-repeat: no-repeat; background-size: cover">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="text-white">ᴛᴏᴘɪᴄ</th>
+                                    <th scope="col" class="text-white">ᴛɪᴍᴇ sᴛᴀᴍᴘ</th>
+                                </tr>
+                            </thead>
+                            <tbody id="SubscribedData">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+
+<script src="./browserMqtt.js"></script>
+<script src="./index.js"></script>
+
+</html>
